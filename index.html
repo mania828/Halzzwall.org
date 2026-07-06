@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halzz Wall — Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --void:#08050D;
+    --violet:#8B5CF6;
+    --violet-bright:#C4A2FF;
+    --ink:#F1ECFB;
+    --muted:#9186B0;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{ height:100%; overflow:hidden; }
+
+  body{
+    background:radial-gradient(ellipse 80% 60% at 50% 40%, #180E2C, var(--void) 70%);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    position:relative;
+  }
+
+  canvas#web{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    touch-action:none;
+    cursor:crosshair;
+  }
+
+  .center-panel{
+    position:fixed;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    z-index:4;
+    text-align:center;
+    background:rgba(10,6,20,0.55);
+    backdrop-filter:blur(6px);
+    border:1px solid rgba(196,162,255,0.18);
+    border-radius:20px;
+    padding:26px 34px;
+    pointer-events:none;
+    max-width:280px;
+  }
+
+  .handle{
+    font-family:'Cinzel', serif;
+    font-weight:600;
+    font-size:23px;
+    letter-spacing:0.02em;
+  }
+
+  .tagline{
+    margin-top:8px;
+    font-size:12.5px;
+    color:var(--muted);
+    line-height:1.5;
+  }
+
+  .hint{
+    position:fixed;
+    bottom:22px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:4;
+    font-size:11.5px;
+    color:var(--muted);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    pointer-events:none;
+  }
+
+  .prey{
+    position:fixed;
+    top:0; left:0;
+    z-index:5;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    text-decoration:none;
+    transform:translate(-50%,-50%);
+  }
+
+  .prey-bubble{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:linear-gradient(160deg, #2B1B48, #140A22);
+    border:1.5px solid rgba(196,162,255,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--violet-bright);
+    box-shadow:0 0 0 5px rgba(139,92,246,0.06);
+    transition:border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .prey-bubble svg{ width:22px; height:22px; }
+
+  .prey:hover .prey-bubble, .prey:focus-visible .prey-bubble{
+    border-color:var(--violet-bright);
+    box-shadow:0 0 0 8px rgba(139,92,246,0.14);
+    transform:scale(1.08);
+  }
+
+  .prey-label{
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--ink);
+    background:rgba(10,6,20,0.6);
+    padding:3px 9px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  :focus-visible{ outline:2px solid var(--violet-bright); outline-offset:4px; }
+
+  .spider{
+    position:fixed;
+    top:0; left:0;
+    z-index:6;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+  }
+
+  @media (max-width:600px){
+    .center-panel{ padding:20px 26px; max-width:220px; }
+    .handle{ font-size:19px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="web"></canvas>
+
+<div class="center-panel">
+  <div class="handle">halzz wall</div>
+  <div class="tagline">Tap the web. Watch it move. Follow a strand to find me.</div>
+</div>
+
+<a class="prey" id="prey-telegram" href="https://t.me/yourusername" target="_blank" rel="noopener">
+  <span class="prey-bubble">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11.5l6 2.2M21 4 15.5 20l-6.3-6.4M21 4 8.7 13.8"/></svg>
+  </span>
+  <span class="prey-label">Telegram</span>
+</a>
+
+<a class="prey" id="prey-tiktok" href="https://tiktok.com/@yourusername" target="_blank" rel="noopener">
+  <span class="prey-bubble">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v9.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c0 2.5 2 4.5 4.5 4.5"/></svg>
+  </span>
+  <span class="prey-label">TikTok</span>
+</a>
+
+<a class="prey" id="prey-instagram" href="https://instagram.com/yourusername" target="_blank" rel="noopener">
+  <span class="prey-bubble">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.3"/><circle cx="16.2" cy="7.8" r="0.6" fill="currentColor" stroke="none"/></svg>
+  </span>
+  <span class="prey-label">Instagram</span>
+</a>
+
+<div class="hint">click and drag on the web</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('web');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W, H, cx, cy, webRadius;
+  const SPOKES = 9;
+  const RING_FRACS = [0.26, 0.5, 0.74, 1.0];
+  let rings = [];
+
+  function layout(){
+    W = canvas.width = window.innerWidth * window.devicePixelRatio;
+    H = canvas.height = window.innerHeight * window.devicePixelRatio;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(window.devicePixelRatio,0,0,window.devicePixelRatio,0,0);
+    cx = window.innerWidth / 2;
+    cy = window.innerHeight / 2;
+    webRadius = Math.max(160, Math.min(460, Math.min(window.innerWidth, window.innerHeight) * 0.44));
+
+    rings = RING_FRACS.map(frac => {
+      const r = webRadius * frac;
+      const nodes = [];
+      for (let s = 0; s < SPOKES; s++){
+        const angle = (Math.PI * 2 * s) / SPOKES - Math.PI/2;
+        nodes.push({
+          restX: cx + Math.cos(angle) * r,
+          restY: cy + Math.sin(angle) * r,
+          angle: angle,
+          dx: 0, dy: 0,
+          pluck: null
+        });
+      }
+      return nodes;
+    });
+  }
+  layout();
+  window.addEventListener('resize', layout);
+
+  function nodePos(ring, spoke){
+    const n = rings[ring][spoke];
+    return { x: n.restX + n.dx, y: n.restY + n.dy };
+  }
+
+  // ---------- pointer interaction ----------
+  let pointer = { x: -9999, y: -9999, active:false };
+
+  function setPointer(e){
+    const t = e.touches ? e.touches[0] : e;
+    pointer.x = t.clientX;
+    pointer.y = t.clientY;
+  }
+
+  canvas.addEventListener('pointermove', (e)=>{ pointer.active = true; setPointer(e); });
+  canvas.addEventListener('pointerleave', ()=>{ pointer.active = false; pointer.x=-9999; pointer.y=-9999; });
+
+  function pluckAt(x, y){
+    const radius = 170;
+    for (const ring of rings){
+      for (const n of ring){
+        const ddx = n.restX - x, ddy = n.restY - y;
+        const dist = Math.hypot(ddx, ddy);
+        if (dist < radius){
+          const strength = (1 - dist / radius);
+          n.pluck = { start: performance.now(), amp: 22 * strength };
+        }
+      }
+    }
+  }
+
+  canvas.addEventListener('pointerdown', (e)=>{
+    setPointer(e);
+    pluckAt(e.clientX, e.clientY);
+  });
+
+  // ---------- physics update ----------
+  const PUSH_RADIUS = 150;
+  const MAX_PUSH = 34;
+
+  function updateNodes(now){
+    for (const ring of rings){
+      for (const n of ring){
+        let tx = 0, ty = 0;
+
+        if (pointer.active){
+          const ddx = n.restX - pointer.x, ddy = n.restY - pointer.y;
+          const dist = Math.hypot(ddx, ddy);
+          if (dist < PUSH_RADIUS && dist > 0.001){
+            const strength = (1 - dist / PUSH_RADIUS);
+            tx += (ddx / dist) * MAX_PUSH * strength;
+            ty += (ddy / dist) * MAX_PUSH * strength;
+          }
+        }
+
+        n.dx += (tx - n.dx) * 0.12;
+        n.dy += (ty - n.dy) * 0.12;
+
+        if (n.pluck){
+          const elapsed = now - n.pluck.start;
+          if (elapsed > 900){
+            n.pluck = null;
+          } else {
+            const decay = Math.exp(-elapsed / 180) * Math.sin(elapsed / 34) * n.pluck.amp;
+            const perpX = -Math.sin(n.angle);
+            const perpY = Math.cos(n.angle);
+            n.dx += perpX * decay * 0.35;
+            n.dy += perpY * decay * 0.35;
+          }
+        }
+      }
+    }
+  }
+
+  // ---------- drawing ----------
+  function draw(){
+    ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+
+    ctx.strokeStyle = 'rgba(139,92,246,0.5)';
+    ctx.lineWidth = 1;
+
+    // spokes
+    for (let s = 0; s < SPOKES; s++){
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      for (let r = 0; r < rings.length; r++){
+        const p = nodePos(r, s);
+        ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+    }
+
+    // rings
+    for (let r = 0; r < rings.length; r++){
+      ctx.beginPath();
+      for (let s = 0; s <= SPOKES; s++){
+        const p = nodePos(r, s % SPOKES);
+        if (s === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+    }
+
+    // hub
+    ctx.beginPath();
+    ctx.arc(cx, cy, 4, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(196,162,255,0.6)';
+    ctx.fill();
+  }
+
+  // ---------- prey elements follow outer ring ----------
+  const preySpokes = { 'prey-telegram': 0, 'prey-tiktok': 3, 'prey-instagram': 6 };
+  const preyEls = {};
+  Object.keys(preySpokes).forEach(id => preyEls[id] = document.getElementById(id));
+
+  function updatePrey(){
+    Object.keys(preySpokes).forEach(id => {
+      const p = nodePos(3, preySpokes[id]);
+      preyEls[id].style.transform = 'translate(' + p.x + 'px,' + p.y + 'px) translate(-50%,-50%)';
+    });
+  }
+
+  // ---------- jumping spiders ----------
+  const SPIDER_COUNT = 4;
+  const spiderColors = ['#C4A2FF', '#9B7BEA', '#B98CFF', '#D8C4FF'];
+
+  function spiderSVG(color){
+    return '<svg width="30" height="26" viewBox="0 0 30 26">' +
+      '<g stroke="' + color + '" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.85">' +
+        '<path d="M11 13 L2 7"/><path d="M11 13 L1 13"/><path d="M11 13 L3 19"/>' +
+        '<path d="M19 13 L28 7"/><path d="M19 13 L29 13"/><path d="M19 13 L27 19"/>' +
+      '</g>' +
+      '<ellipse cx="15" cy="15.5" rx="7.2" ry="6" fill="' + color + '"/>' +
+      '<circle cx="15" cy="9.5" r="5.4" fill="' + color + '"/>' +
+      '<circle cx="12.6" cy="8.6" r="2.15" fill="#0A0614"/>' +
+      '<circle cx="17.4" cy="8.6" r="2.15" fill="#0A0614"/>' +
+      '<circle cx="12.05" cy="7.95" r="0.7" fill="#F1ECFB"/>' +
+      '<circle cx="16.85" cy="7.95" r="0.7" fill="#F1ECFB"/>' +
+      '<circle cx="10.3" cy="6.2" r="0.9" fill="#0A0614"/>' +
+      '<circle cx="19.7" cy="6.2" r="0.9" fill="#0A0614"/>' +
+    '</svg>';
+  }
+
+  const spiders = [];
+  const layer = document.body;
+
+  function randomNode(){
+    const ring = 1 + Math.floor(Math.random() * (rings.length - 1));
+    const spoke = Math.floor(Math.random() * SPOKES);
+    return { ring, spoke };
+  }
+
+  for (let i = 0; i < SPIDER_COUNT; i++){
+    const el = document.createElement('div');
+    el.className = 'spider';
+    el.innerHTML = spiderSVG(spiderColors[i % spiderColors.length]);
+    layer.appendChild(el);
+
+    const start = randomNode();
+    spiders.push({
+      el,
+      ring: start.ring,
+      spoke: start.spoke,
+      jumping: false,
+      from: null,
+      to: null,
+      startTime: 0,
+      duration: 500,
+      nextJump: performance.now() + 1500 + Math.random() * 2500
+    });
+  }
+
+  function startJump(spider, targetRing, targetSpoke, duration){
+    spider.from = nodePos(spider.ring, spider.spoke);
+    spider.to = nodePos(targetRing, targetSpoke);
+    spider.ring = targetRing;
+    spider.spoke = targetSpoke;
+    spider.jumping = true;
+    spider.startTime = performance.now();
+    spider.duration = duration || 500;
+  }
+
+  function updateSpiders(now){
+    for (const sp of spiders){
+      if (sp.jumping){
+        const t = Math.min((now - sp.startTime) / sp.duration, 1);
+        const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+        const x = sp.from.x + (sp.to.x - sp.from.x) * ease;
+        const y = sp.from.y + (sp.to.y - sp.from.y) * ease;
+        const arc = Math.sin(t * Math.PI) * 34;
+        const squash = 1 + Math.sin(t * Math.PI) * 0.18;
+
+        sp.el.style.transform = 'translate(' + x + 'px,' + (y - arc) + 'px) translate(-50%,-50%) scale(' + (1/squash).toFixed(3) + ',' + squash.toFixed(3) + ')';
+
+        if (t >= 1){
+          sp.jumping = false;
+          sp.nextJump = now + 1800 + Math.random() * 2600;
+        }
+      } else {
+        const pos = nodePos(sp.ring, sp.spoke);
+        sp.el.style.transform = 'translate(' + pos.x + 'px,' + pos.y + 'px) translate(-50%,-50%)';
+
+        if (!reduceMotion && now >= sp.nextJump){
+          const target = randomNode();
+          startJump(sp, target.ring, target.spoke, 420 + Math.random() * 260);
+        }
+      }
+    }
+  }
+
+  function nearestIdleSpider(x, y){
+    let best = null, bestDist = Infinity;
+    for (const sp of spiders){
+      if (sp.jumping) continue;
+      const pos = nodePos(sp.ring, sp.spoke);
+      const d = Math.hypot(pos.x - x, pos.y - y);
+      if (d < bestDist){ bestDist = d; best = sp; }
+    }
+    return best;
+  }
+
+  Object.keys(preySpokes).forEach(id => {
+    const el = preyEls[id];
+    const spoke = preySpokes[id];
+    function goThere(){
+      const target = nodePos(3, spoke);
+      const sp = nearestIdleSpider(target.x, target.y);
+      if (sp) startJump(sp, 3, spoke, 480);
+    }
+    el.addEventListener('mouseenter', goThere);
+    el.addEventListener('focus', goThere);
+  });
+
+  // ---------- main loop ----------
+  function loop(now){
+    updateNodes(now);
+    draw();
+    updatePrey();
+    updateSpiders(now);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+})();
+</script>
+
+</body>
+</html>
